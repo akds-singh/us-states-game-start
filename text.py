@@ -24,7 +24,7 @@ class Text(Turtle):
         while self.distance((x, y)) > 10:
             Screen().update()
             time.sleep(0.1)
-            print('text is moving')
+            # print('text is moving')
             self.clear()
             self.write(f'{text}', move=False, font=('Arial', 10, 'normal'))
 
