@@ -5,7 +5,6 @@ from turtle import Turtle, Screen
 from prompt import Prompt
 from text import Text
 
-
 turtle = Turtle()
 screen = Screen()
 image = 'blank_states_img.gif'
@@ -20,7 +19,7 @@ screen.title(f'{remain_states}/{total_states}US states Game')
 
 state_col = data['state']
 state_list = state_col.to_list()
-
+guessed_states_list = []
 count_state = 0
 at_des = False
 while not at_des:
@@ -31,12 +30,17 @@ while not at_des:
 
     # print(state_list)
     if state_name == 'Exit':
+        remain_states = [state for state in state_list if state not in guessed_states_list]
+        print(remain_states)
+        remain_states_df = pd.DataFrame(remain_states)
+        remain_states_df.to_csv('./remain_states.csv')
         break
 
     # if not state_col[state_col.isin([state_name])].empty:
     if state_name in state_list:
-        state_index = state_list.index(state_name)
-        state_list.pop(state_index)
+        guessed_states_list.append(state_name)
+        # state_index = state_list.index(state_name)
+        # state_list.pop(state_index)
 
         # print('under if statement')
         count_state += 1
@@ -49,6 +53,6 @@ while not at_des:
 # save the remaining states to a .csv file
 
 # pd.DataFrame.to_csv(state_list)
-remaining_states_df = pd.DataFrame(state_list)
-remain_states_dict = remaining_states_df.to_csv('./remain_states.csv', index=False)
+# remaining_states_df = pd.DataFrame(state_list)
+# remain_states_dict = remaining_states_df.to_csv('./remain_states.csv', index=False)
 # pd.DataFrame.to_csv('remain_states.csv')
